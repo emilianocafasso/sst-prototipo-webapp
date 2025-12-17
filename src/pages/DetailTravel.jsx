@@ -23,7 +23,6 @@ export default function DetailTravel() {
 
 				<SearchBar users={displayedUsers} onSearchResults={setDisplayedUsers} />
 
-
 				<h1 className="d-flex justify-content-center">{travels[travelId - 1].destination} trip</h1>
 				{/* table */}
 				<table className="table border-dark">
@@ -40,7 +39,7 @@ export default function DetailTravel() {
 					</thead>
 					{/* table body */}
 					<tbody>
-						{travelUsers.map(user => (
+						{displayedUsers.map(user => (
 							<tr key={user.id}>
 								<th>
 									{user.id}
