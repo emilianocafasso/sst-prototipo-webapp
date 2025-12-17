@@ -11,11 +11,18 @@ export default function DetailTravel() {
 	const travelId = parseInt(id)
 	const travelUsers = users.filter(user => user.travel_id === travelId)
 
+	// stato iniziale: mostro tutti gli utenti già filtrati per il singolo viaggio
+	const [displayedUsers, setDisplayedUsers] = useState(travelUsers)
+
+
 
 
 	return (
 		<>
 			<div className="container mt-3">
+
+				<SearchBar users={displayedUsers} onSearchResults={setDisplayedUsers} />
+
 
 				<h1 className="d-flex justify-content-center">{travels[travelId - 1].destination} trip</h1>
 				{/* table */}

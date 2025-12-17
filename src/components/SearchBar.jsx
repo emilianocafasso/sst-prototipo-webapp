@@ -1,42 +1,49 @@
 import React, { useState } from "react";
 
 const SearchBar = ({ users, onSearchResults }) => {
+
     const [searchTerm, setSearchTerm] = useState('')
 
     const handleSearch = (e) => {
-        const value = e.targe.value.toLowerCase()
+
+        e.preventDefault()
+
+        const value = searchTerm.toLowerCase()
         setSearchTerm(value)
-    }
 
-    if (value.trim() === '') {
-        // se la barra di ricerca è vuota, mostro tutti i partecipanti
-        onSearchResults(users)
-        return
-    }
+        if (value.trim() === '') {
+            // se la barra di ricerca è vuota, mostro tutti i partecipanti
+            onSearchResults(users)
+            return
+        }
 
-    // filtro gli utenti
-    const term = value.toLowerCase()
-    const results = users.filter(user => {
-        const fullName = `${user.first_name} ${user.last_name}`.toLowerCase()
-        return fullName.include(term)
-    })
+        // filtro gli utenti
+        const term = value.toLowerCase()
+        const results = users.filter(user => {
+            const fullName = `${user.first_name} ${user.last_name}`.toLowerCase()
+            return fullName.includes(term)
+        })
 
-    onSearchResults(results)
+        onSearchResults(results)
 
-    const clearSearch = () => {
+        const clearSearch = () => {
+            onSearchResults(users)
+        }
         setSearchTerm('')
-        onSearchResults(users)
+
+        console.log(users);
+
     }
 
     return (
-        <div>
+        <form onSubmit={handleSearch}>
             <input
                 type="text"
-                value={setSearchTerm}
-                onchange={handleSearch}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Cerca partecipante per nome e cognome..."
             />
-        </div>
+        </form >
     )
 }
 
